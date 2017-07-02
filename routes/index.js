@@ -184,17 +184,6 @@ function loginToAdministrator(){
 	  password: 'SECURE_TNI_System12'
 	}).then(function(info) {
 	    console.log('Permissions Accessed');
-
-		rbxJs.message({
-			'recipient': 39563808,
-			'subject': "PROMO",
-			'body': "Congratulations!",
-		}).then(function() {
-			console.log("Message successfully sent to UndefinedMind!");
-		}).catch(function(err) {
-			console.log(err);
-		});
-
 	    console.log('Commencing Ranking System & Awaiting Calls from rbx.irontechnologies@gmail.com');
 
 	    router.get('/update', function(req, res) {
@@ -240,7 +229,7 @@ function loginToAdministrator(){
 	    	}
 	    });
 
-	    //updateGroupRankings();
+	    updateGroupRankings();
 	}).catch(function(e) {
 		console.log('Permissions Denied');
 		console.log(e);
