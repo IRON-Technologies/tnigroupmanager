@@ -3,7 +3,7 @@ var rbxJs = require('roblox-js');
 var https = require('https');
 var router = express.Router();
 
-var ranks = [2, 4, -1, 7, 10, 13, 16, 20, 25];
+var ranks = [10, 20, -1, 35, 50, 65, 80, 100, 125];
 var groupId = 1174414;
 var apiKey = "1IJBk5TxgeUSHd3NPtBoiN9LbaxMuXi1QkoCLz8HtsyN8O4wng2cP0Ftfp6Z";
 
