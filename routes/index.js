@@ -6,6 +6,7 @@ var router = express.Router();
 var ranks = [10, 20, -1, 35, 50, 65, 80, 100, 125];
 var groupId = 1174414;
 var apiKey = "1IJBk5TxgeUSHd3NPtBoiN9LbaxMuXi1QkoCLz8HtsyN8O4wng2cP0Ftfp6Z";
+var updating = false
 
 function GetEXPFromLevel(level) {
 	return level > 1
@@ -20,6 +21,12 @@ function GetLevelFromEXP(exp) {
 }
 
 function updateGroupRankings() {
+	if (updating) {
+		return;
+	}
+
+	updating = true;
+
 	console.log("Updating Group " + groupId + " Rankings @ " + new Date());
 
 	var changes = {};
@@ -110,8 +117,6 @@ function updateGroupRankings() {
 
 						var numPlayers = players.length;
 
-						console.log(players);
-
 						for (var playerIndex of players) {
 							(function(playerIndex) {
 								var userName = playerIndex.name;
@@ -163,7 +168,9 @@ function updateGroupRankings() {
 								playersComplete++; //increment to show that this player has been processed through the ranking procedure
 
 								if (playersComplete == numPlayers) { //if all the players have been processed then log any changes to the google document
+									updating = false;
 									logChangesToDoc();
+									console.log(updating);
 								}
 							})(playerIndex);
 						}
