@@ -126,16 +126,32 @@ function updateGroupRankings() {
 								var followingRank = roles[playerIndex.parent.rankIndex + 1];
 
 								if (followingRank && followingRank.PromoEXP == -1) {
-									console.log("Manual intervention required for this player to rise to " + followingRank.Name);
+									console.log("Manual intervention required for " + userName + " to rise to " + followingRank.Name);
 								} else if (rank <= highestPromoRank.Rank) { //if rank is less than or equal to the highest promo rank, this person is not exempt from the ranking system
 									var exp = data[userId.toString()]; //exp in numerical form
 
 									if (typeof exp == "number") { //if exp exists
 										for (var index in roles) { //iterate through the roles in the group from least to owner
+											index = parseInt(index);
 											var PromoEXP = roles[index].PromoEXP; //get exp required to be that role
 											if (typeof PromoEXP == "number") { //check to see if the required exp is a number
 												if (Math.min(exp, PromoEXP) == exp) { //if the player's exp is less than the exp required to promote
-													if (exp == PromoEXP && rank != roles[index].Rank) { //if the exp is the same as the promo exp and the player is not that rank
+													if (userName == "zackyattacky") {
+														console.log(rank);
+														console.log(roles[index]);
+														console.log(roles[index + 1]);
+														console.log(roles[index - 1]);
+														console.log(typeof index);
+														console.log(roles[exp == PromoEXP ? index + 1 : index - 1]);
+													}
+
+													if (
+														roles[(exp == PromoEXP ? index + 1 : index - 1)] &&
+														rank == roles[(exp == PromoEXP ? index + 1 : index - 1)].Rank && 
+														roles[(exp == PromoEXP ? index + 1 : index - 1)].PromoEXP == -1
+													) { //if they player is rightfully in a manual ranking then do nothing
+														noChange(userId);
+													} else if (exp == PromoEXP && rank != roles[index].Rank) { //elseif the exp is the same as the promo exp and the player is not that rank
 														setRank(userId, userName, roles[index].Rank, rank, roles[index].Name); //rank him there
 													} else if (exp != PromoEXP && rank != roles[index - 1].Rank) { //otherwise if the exp is actually less than the requirement to be promoted
 														setRank(userId, userName, roles[index - 1].Rank, rank, roles[index - 1].Name); //promote him to the rank before
